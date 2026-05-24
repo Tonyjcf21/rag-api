@@ -1,0 +1,11 @@
+My name is Tony.
+I'm currently learning about cloud computing, AI, and DevOps.
+
+My career goal is to become a AI Engineer.
+I'm especially interested in e.g., automation, infrastructure as code, machine learning.
+
+I have experience with e.g., Python, JavaScript, AWS, Docker.
+I'm currently building projects on NextWork to grow my hands-on skills.
+
+For fun, I enjoy Watching series, hiking, and eating.
+A fun fact about me is e.g., I once ran a marathon, I can solve a Rubik's cube in under a minute, I am not a robot and I love dogs.
