@@ -1,3 +1,5 @@
+import re
+
 import chromadb
 from chromadb.utils.embedding_functions.ollama_embedding_function import (
     OllamaEmbeddingFunction,
@@ -34,16 +36,13 @@ collection = client.get_or_create_collection(
     embedding_function=ef,  # Tells ChromaDB how to convert text to vectors
 )
 
-''' (code above)
-What does this code do?
-This creates a ChromaDB database that saves to disk, connects it to nomic-embed-text for generating embeddings, 
-and creates a collection called personal_profile. A collection is like a table in a relational database.
-
-Here's how the pieces fit together: the OllamaEmbeddingFunction tells ChromaDB to call your local Ollama server 
-whenever it needs to convert text into vectors. ChromaDB handles the storage and search, 
-but Ollama's nomic-embed-text model does the actual embedding work behind the scenes.
-'''
-
+# Remove seed chunks from earlier runs (chunk0, chunk1, ...) before re-adding
+existing = collection.get()
+seed_id_pattern = re.compile(r"^chunk\d+$")
+seed_ids = [id for id in existing["ids"] if seed_id_pattern.fullmatch(id)]
+if seed_ids:
+    collection.delete(ids=seed_ids)
+    print(f"Deleted {len(seed_ids)} previous seed chunk(s): {seed_ids}")
 
 # Add chunks to the collection - ChromaDB automatically generates embeddings
 collection.add(
